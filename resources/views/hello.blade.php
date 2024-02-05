@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <h1>Xin chao</h1>
+    <h1>Xin chao {{ $message }}</h1>
 </body>
 
 </html>

@@ -25,7 +25,7 @@ class App
             $route = $this->getCurrentRoute();
             return $route->resolvePath();
         } catch (\Throwable $th) {
-            Debug::printR($th->getTrace());
+            Debug::printR($th);
         }
     }
 
@@ -35,7 +35,6 @@ class App
         foreach ($this->routes as $route) {
             if ($route->isMatching()) {
                 $current_route = $route;
-                break;
             }
         }
         if (empty($current_route)) throw new NotFoundException();

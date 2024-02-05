@@ -13,15 +13,18 @@ class HomeController extends Controller
         return Response::view("hello");
     }
 
-    public function index2(int $test)
+    public function index2(string $slug)
     {
-        Debug::consoleLog($test);
-        return Response::view("hello");
+        return Response::view("hello", ["message" => $slug]);
     }
 
     public function index3()
     {
-        Debug::consoleLog("Test");
-        return Response::view("hello");
+        return Response::view("hello", ["message" => "test"]);
+    }
+
+    public function index4()
+    {
+        return Response::view("hello", ["message" => "hello"]);
     }
 }

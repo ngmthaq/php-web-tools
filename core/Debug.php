@@ -16,6 +16,7 @@ class Debug
         }
         echo "</code>";
         echo "</pre>";
+        die();
     }
 
     public static function consoleLog()
@@ -27,5 +28,6 @@ class Debug
             $js_code = '<script>' . $js_code . '</script>';
             echo $js_code;
         }
+        die();
     }
 }
