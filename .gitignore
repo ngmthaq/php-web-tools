@@ -1,0 +1,12 @@
+# Composer Vendor
+/vendor
+
+# Node Modules
+/node_modules
+
+# View Cache
+/resources/cache/views/*
+!/resources/cache/views/.gitkeep
+
+# ENV
+/.env
