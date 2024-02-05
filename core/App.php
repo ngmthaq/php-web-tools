@@ -32,11 +32,7 @@ class App
     public function getCurrentRoute()
     {
         $current_route = null;
-        foreach ($this->routes as $route) {
-            if ($route->isMatching()) {
-                $current_route = $route;
-            }
-        }
+        foreach ($this->routes as $route) if ($route->isMatching()) $current_route = $route;
         if (empty($current_route)) throw new NotFoundException();
         return $current_route;
     }

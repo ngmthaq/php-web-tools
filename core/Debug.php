@@ -25,7 +25,7 @@ class Debug
         $args = func_get_args();
         foreach ($args as $arg) {
             $js_code = 'console.log(' . json_encode($arg, JSON_HEX_TAG) . ');';
-            $js_code = '<script>' . $js_code . '</script>';
+            $js_code = '<script data-php-debug=\'true\'>' . $js_code . '</script>';
             echo $js_code;
         }
         die();
