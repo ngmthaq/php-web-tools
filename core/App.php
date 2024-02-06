@@ -3,6 +3,7 @@
 namespace Core;
 
 use App\Http\Exceptions\NotFoundException;
+use Dotenv\Dotenv;
 
 class App
 {
@@ -15,10 +16,17 @@ class App
         $this->i18n = new I18n();
     }
 
+    public function initialEnv()
+    {
+        $dotenv = Dotenv::createImmutable(Dir::root());
+        $dotenv->safeLoad();
+    }
+
     public function preload()
     {
         session_start();
         ob_start();
+        $this->initialEnv();
         $this->i18n->init();
     }
 
