@@ -1,5 +1,7 @@
 <?php
 
+use Core\Dir;
+
 /**
  * Translate
  */
@@ -15,8 +17,7 @@ function assets(string $assets_path)
 {
     $app_url = $_ENV["APP_PUBLIC_URL"];
     $app_version = $_ENV["APP_VERSION"];
-    $app_env = $_ENV["APP_ENV"];
-    $time = $app_env !== "production" ?  time() : strtotime("today midnight");
+    $time = isProd() ? strtotime("today midnight") : time();
     $app_url = str_ends_with($app_url, "/") ? substr($app_url, 0, -1) : $app_url;
     $assets_path = str_starts_with($assets_path, "/") ?  substr($assets_path, 1) : $assets_path;
     $full_path = "$app_url/$assets_path?v=$app_version&t=$time";
@@ -28,8 +29,7 @@ function assets(string $assets_path)
  */
 function sanitizeOutput(string $buffer): string
 {
-    $app_env = $_ENV["APP_ENV"];
-    if ($app_env === "production") {
+    if (isProd()) {
         $search = [
             "/\>[^\S ]+/s",
             "/[^\S ]+\</s",
@@ -43,4 +43,9 @@ function sanitizeOutput(string $buffer): string
         $buffer = preg_replace($search, $replace, $buffer);
     }
     return $buffer;
+}
+
+function isProd()
+{
+    return file_exists(Dir::root() . "/.prod");
 }
