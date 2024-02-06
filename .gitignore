@@ -5,8 +5,17 @@
 /node_modules
 
 # View Cache
-/resources/cache/views/*
-!/resources/cache/views/.gitkeep
+/cache/views/**/*
+!/cache/views/.gitkeep
+
+# I18n Cache
+/cache/langs/**/*
+!/cache/langs/.gitkeep
+
+# Assets Cache
+/public/assets
+/cache/assets/**/*
+!/cache/assets/.gitkeep
 
 # ENV
 /.env

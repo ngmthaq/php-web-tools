@@ -10,6 +10,7 @@
 
 <body>
     <h1>Xin chao {{ $message }}</h1>
+    <h2>{{ L::category_name }}</h2>
 </body>
 
 </html>

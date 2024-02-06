@@ -14,6 +14,11 @@ class Dir
         return self::root() . "/app";
     }
 
+    public static function cache()
+    {
+        return self::root() . "/cache";
+    }
+
     public static function core()
     {
         return __DIR__;
