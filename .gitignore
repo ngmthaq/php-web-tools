@@ -12,8 +12,8 @@
 /cache/langs/**/*
 !/cache/langs/.gitkeep
 
-# Assets Cache
-/public/js/**/*
+# Bundles Cache
+/public/bundles/**/*
 
 # ENV
 /.env

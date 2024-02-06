@@ -12,7 +12,7 @@
     <h1>Xin chao {{ $message }}</h1>
     <h2>{{ __('category_name') }}</h2>
 
-    <script src="{{ assets('js/main.bundle.js') }}"></script>
+    <script src="{{ assets('bundles/main.bundle.js') }}"></script>
 </body>
 
 </html>

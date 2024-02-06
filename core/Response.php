@@ -13,6 +13,6 @@ class Response
         $blade = new BladeOne($views, $cache, BladeOne::MODE_DEBUG);
         $blade->pipeEnable = true;
         http_response_code($status);
-        echo $blade->run($name, $data);
+        echo sanitizeOutput($blade->run($name, $data));
     }
 }
