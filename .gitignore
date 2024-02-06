@@ -12,6 +12,14 @@
 /cache/langs/**/*
 !/cache/langs/.gitkeep
 
+# Log Cache
+/cache/logs/**/*
+!/cache/logs/.gitkeep
+
+# Files Cache
+/cache/files/**/*
+!/cache/files/.gitkeep
+
 # Bundles Cache
 /public/bundles/**/*
 
