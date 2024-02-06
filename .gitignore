@@ -13,9 +13,7 @@
 !/cache/langs/.gitkeep
 
 # Assets Cache
-/public/assets
-/cache/assets/**/*
-!/cache/assets/.gitkeep
+/public/js/**/*
 
 # ENV
 /.env
