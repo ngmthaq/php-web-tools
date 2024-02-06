@@ -4,6 +4,9 @@ namespace Core;
 
 class Debug
 {
+    /**
+     * Print to screen
+     */
     public static function printR()
     {
         ob_end_clean();
@@ -19,6 +22,9 @@ class Debug
         die();
     }
 
+    /**
+     * Show in console.log
+     */
     public static function consoleLog()
     {
         ob_end_clean();

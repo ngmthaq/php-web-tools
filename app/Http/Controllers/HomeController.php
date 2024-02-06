@@ -9,6 +9,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return Response::view("hello");
+        return Response::view("pages.home");
     }
 }

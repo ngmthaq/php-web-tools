@@ -4,8 +4,19 @@ namespace Core;
 
 class Route
 {
+    /**
+     * Request Method
+     */
     public string $method;
+
+    /**
+     * Request Path
+     */
     public string $path;
+
+    /**
+     * Request Action
+     */
     public mixed $action;
 
     public function __construct(string $method, string $path, mixed $action)
@@ -15,6 +26,9 @@ class Route
         $this->action = $action;
     }
 
+    /**
+     * Check route match with current request
+     */
     public function isMatching()
     {
         $path = Server::resolvePath();
@@ -30,6 +44,9 @@ class Route
         }
     }
 
+    /**
+     * Resolve Path Action
+     */
     public function resolvePath()
     {
         $pattern = $this->regexPath();
@@ -45,6 +62,9 @@ class Route
         }
     }
 
+    /**
+     * Check if path need convert to regex path
+     */
     public function isNeedRegex()
     {
         $pattern = '/{\d+}/';
@@ -52,6 +72,9 @@ class Route
         return count($matches[0]) > 0;
     }
 
+    /**
+     * Get Path Regex
+     */
     public function regexPath()
     {
         $pattern_1 = '/{\d+}/';

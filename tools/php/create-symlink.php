@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Create symlink match with config of configs/app.php
+ */
+
 use Core\Dir;
 
 require_once("./vendor/autoload.php");

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Clear Blade Template Engine data cached in cache/views
+ */
+
 use Core\Dir;
 
 require_once("./vendor/autoload.php");

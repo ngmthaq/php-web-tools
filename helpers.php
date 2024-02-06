@@ -1,11 +1,16 @@
 <?php
 
+/**
+ * Translate
+ */
 function __(string $string, mixed $args = null)
 {
     return L($string, $args);
 }
 
-
+/**
+ * Get assets path
+ */
 function assets(string $assets_path)
 {
     $app_url = $_ENV["APP_PUBLIC_URL"];
@@ -18,6 +23,9 @@ function assets(string $assets_path)
     return $full_path;
 }
 
+/**
+ * Sanitize Output
+ */
 function sanitizeOutput(string $buffer): string
 {
     $app_env = $_ENV["APP_ENV"];

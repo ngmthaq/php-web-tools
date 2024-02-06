@@ -13,6 +13,9 @@ class I18n
         $this->i18n = new I18nGenerator();
     }
 
+    /**
+     * Init I18n
+     */
     public function init()
     {
         $this->i18n->setCachePath(Dir::cache() . "/langs");

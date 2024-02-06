@@ -2,6 +2,9 @@
 
 namespace Core;
 
+/**
+ * Directories
+ */
 class Dir
 {
     public static function root()

@@ -6,6 +6,9 @@ use eftec\bladeone\BladeOne;
 
 class Response
 {
+    /**
+     * Return text/html response
+     */
     public static function view(string $name, array $data = [], int $status = 200)
     {
         $app_env = $_ENV["APP_ENV"];

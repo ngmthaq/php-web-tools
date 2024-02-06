@@ -7,7 +7,14 @@ use Dotenv\Dotenv;
 
 class App
 {
+    /**
+     * Route List
+     */
     public array $routes;
+
+    /**
+     * I18n Configs
+     */
     public I18n $i18n;
 
     public function __construct()
@@ -16,12 +23,18 @@ class App
         $this->i18n = new I18n();
     }
 
+    /**
+     * Init ENV with Dotenv
+     */
     public function initialEnv()
     {
         $dotenv = Dotenv::createImmutable(Dir::root());
         $dotenv->safeLoad();
     }
 
+    /**
+     * Preload
+     */
     public function preload()
     {
         session_start();
@@ -30,6 +43,9 @@ class App
         $this->i18n->init();
     }
 
+    /**
+     * Run application
+     */
     public function run()
     {
         try {
@@ -40,6 +56,9 @@ class App
         }
     }
 
+    /**
+     * Get Current Route
+     */
     public function getCurrentRoute()
     {
         $current_route = null;
