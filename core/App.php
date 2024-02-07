@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use App\Http\Exceptions\AppException;
+use App\Http\Exceptions\ForbiddenException;
 use Dotenv\Dotenv;
 use i18n as I18n;
 
@@ -47,9 +49,16 @@ class App
         try {
             $route = Request::getCurrentRoute();
             call_user_func($route->resolvePath());
-            exit;
         } catch (\Throwable $th) {
-            Debug::printR($th);
+            if ($th instanceof ForbiddenException) {
+                Response::error($th->getCode(), $th->getMessage(), $th->getDetails());
+            } elseif ($th instanceof AppException) {
+                Response::error($th->getCode(), $th->getMessage());
+            } else {
+                $message = isProd() ? "The server has encountered a situation it does not know how to handle" : $th->getMessage();
+                $details = isProd() ? [] : $th->getTrace();
+                Response::error(Response::STT_INTERNAL_SERVER_ERROR, $message, $details);
+            }
         }
     }
 }

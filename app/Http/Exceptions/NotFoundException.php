@@ -2,14 +2,12 @@
 
 namespace App\Http\Exceptions;
 
-use Exception;
-
 /**
  * NotFoundException (404)
  */
-class NotFoundException extends Exception
+class NotFoundException extends AppException
 {
-    public function __construct($message = "", $code = 404)
+    public function __construct($message = "The server cannot find the requested resource", $code = 404)
     {
         parent::__construct($message, $code);
     }
