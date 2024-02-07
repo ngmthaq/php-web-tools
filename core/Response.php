@@ -9,7 +9,7 @@ class Response
     /**
      * Return text/html response
      */
-    public static function view(string $name, array $data = [], int $status = 200)
+    public static function view(string $name, array $data = [], int $status = 200): void
     {
         $views = Dir::resources() . "/views";
         $cache = Dir::cache() . "/views";

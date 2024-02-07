@@ -2,44 +2,66 @@
 
 namespace Core;
 
+use Closure;
+
 class Route
 {
     /**
      * Request Method
      */
-    public string $method;
+    public string $_method;
 
     /**
      * Request Path
      */
-    public string $path;
+    public string $_path;
 
     /**
      * Request Action
      */
-    public mixed $action;
+    public Closure $_action;
 
-    public function __construct(string $method, string $path, mixed $action)
+    /**
+     * Set Method
+     */
+    public function method(string $method): Route
     {
-        $this->method = $method;
-        $this->path = $path;
-        $this->action = $action;
+        $this->_method = $method;
+        return $this;
+    }
+
+    /**
+     * Set Path
+     */
+    public function path(string $path): Route
+    {
+        $this->_path = $path;
+        return $this;
+    }
+
+    /**
+     * Set Action
+     */
+    public function action(Closure $action): Route
+    {
+        $this->_action = $action;
+        return $this;
     }
 
     /**
      * Check route match with current request
      */
-    public function isMatching()
+    public function isMatching(): bool
     {
         $path = Server::resolvePath();
         $method = Server::resolveMethod();
-        $method_cmp = strcmp(strtolower($method), strtolower($this->method));
+        $method_cmp = strcmp(strtolower($method), strtolower($this->_method));
         if ($this->isNeedRegex()) {
             $regex_path = $this->regexPath();
             $preg_match = preg_match($regex_path, $path);
             return $preg_match === 1 && $method_cmp  === 0;
         } else {
-            $path_cmp = strcmp(strtolower($path), strtolower($this->path));
+            $path_cmp = strcmp(strtolower($path), strtolower($this->_path));
             return $path_cmp === 0 && $method_cmp  === 0;
         }
     }
@@ -47,39 +69,44 @@ class Route
     /**
      * Resolve Path Action
      */
-    public function resolvePath()
+    public function resolvePath(): Closure
     {
+        $action = $this->_action;
+        return $action;
+    }
+
+    /**
+     * Resolve URL Params
+     */
+    public function resolveParams(): array
+    {
+        $matches = [];
         $pattern = $this->regexPath();
         $path = Server::resolvePath();
-        $action = $this->action;
-        if ($this->isNeedRegex()) {
-            preg_match_all($pattern, $path, $matches);
-            $full_params = array_map(fn ($match) =>  $match[0], $matches);
-            $params = array_filter($full_params, fn ($_, $index) => $index > 0, ARRAY_FILTER_USE_BOTH);
-            $action(array_values($params));
-        } else {
-            $action();
-        }
+        preg_match_all($pattern, $path, $matches);
+        $full_params = array_map(fn ($match) =>  $match[0], $matches);
+        $params = array_filter($full_params, fn ($_, $index) => $index > 0, ARRAY_FILTER_USE_BOTH);
+        return array_values($params);
     }
 
     /**
      * Check if path need convert to regex path
      */
-    public function isNeedRegex()
+    public function isNeedRegex(): bool
     {
         $pattern = '/{\d+}/';
-        preg_match_all($pattern, $this->path, $matches);
+        preg_match_all($pattern, $this->_path, $matches);
         return count($matches[0]) > 0;
     }
 
     /**
      * Get Path Regex
      */
-    public function regexPath()
+    public function regexPath(): string
     {
         $pattern_1 = '/{\d+}/';
         $pattern_2 = '/';
-        $path = preg_replace($pattern_1, '(.+)', $this->path);
+        $path = preg_replace($pattern_1, '(.+)', $this->_path);
         $regex = str_replace($pattern_2, '\/', $path);
         return "/" . $regex . "/";
     }

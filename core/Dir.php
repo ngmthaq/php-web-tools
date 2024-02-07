@@ -7,47 +7,47 @@ namespace Core;
  */
 class Dir
 {
-    public static function root()
+    public static function root(): string
     {
         return str_replace("/core", "", __DIR__);
     }
 
-    public static function app()
+    public static function app(): string
     {
         return self::root() . "/app";
     }
 
-    public static function cache()
+    public static function cache(): string
     {
         return self::root() . "/cache";
     }
 
-    public static function core()
+    public static function core(): string
     {
         return __DIR__;
     }
 
-    public static function configs()
+    public static function configs(): string
     {
         return self::root() . "/configs";
     }
 
-    public static function public()
+    public static function public(): string
     {
         return self::root() . "/public";
     }
 
-    public static function resources()
+    public static function resources(): string
     {
         return self::root() . "/resources";
     }
 
-    public static function routes()
+    public static function routes(): string
     {
         return self::root() . "/routes";
     }
 
-    public static function tools()
+    public static function tools(): string
     {
         return self::root() . "/tools";
     }

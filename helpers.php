@@ -1,11 +1,12 @@
 <?php
 
 use Core\Dir;
+use Core\Route;
 
 /**
  * Translate
  */
-function __(string $string, mixed $args = null)
+function __(string $string, mixed $args = null): string
 {
     return L($string, $args);
 }
@@ -13,7 +14,7 @@ function __(string $string, mixed $args = null)
 /**
  * Get assets path
  */
-function assets(string $assets_path)
+function assets(string $assets_path): string
 {
     $app_url = $_ENV["APP_PUBLIC_URL"];
     $app_version = $_ENV["APP_VERSION"];
@@ -45,7 +46,18 @@ function sanitizeOutput(string $buffer): string
     return $buffer;
 }
 
-function isProd()
+/**
+ * Check is production
+ */
+function isProd(): bool
 {
     return file_exists(Dir::root() . "/.prod");
+}
+
+/**
+ * Create new Route instance
+ */
+function route(): Route
+{
+    return new Route();
 }

@@ -7,7 +7,7 @@ class Debug
     /**
      * Print to screen
      */
-    public static function printR()
+    public static function printR(): void
     {
         ob_end_clean();
         $args = func_get_args();
@@ -25,7 +25,7 @@ class Debug
     /**
      * Show in console.log
      */
-    public static function consoleLog()
+    public static function consoleLog(): void
     {
         ob_end_clean();
         $args = func_get_args();

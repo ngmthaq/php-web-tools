@@ -2,68 +2,54 @@
 
 namespace Core;
 
-use App\Http\Exceptions\NotFoundException;
 use Dotenv\Dotenv;
+use i18n as I18n;
 
 class App
 {
     /**
-     * Route List
-     */
-    public array $routes;
-
-    /**
-     * I18n Configs
-     */
-    public I18n $i18n;
-
-    public function __construct()
-    {
-        $this->routes = require_once(Dir::configs() . "/routes.php");
-        $this->i18n = new I18n();
-    }
-
-    /**
      * Init ENV with Dotenv
      */
-    public function initialEnv()
+    public function initialEnv(): void
     {
         $dotenv = Dotenv::createImmutable(Dir::root());
         $dotenv->safeLoad();
     }
 
     /**
+     * Init I18n
+     */
+    public function initI18n(): void
+    {
+        $i18n = new I18n();
+        $i18n->setCachePath(Dir::cache() . "/langs");
+        $i18n->setFilePath(Dir::resources() . "/langs/{LANGUAGE}.json");
+        $i18n->setFallbackLang('en');
+        $i18n->init();
+    }
+
+    /**
      * Preload
      */
-    public function preload()
+    public function preload(): void
     {
         session_start();
         ob_start();
         $this->initialEnv();
-        $this->i18n->init();
+        $this->initI18n();
     }
 
     /**
      * Run application
      */
-    public function run()
+    public function run(): void
     {
         try {
-            $route = $this->getCurrentRoute();
-            return $route->resolvePath();
+            $route = Request::getCurrentRoute();
+            call_user_func($route->resolvePath());
+            exit;
         } catch (\Throwable $th) {
             Debug::printR($th);
         }
-    }
-
-    /**
-     * Get Current Route
-     */
-    public function getCurrentRoute()
-    {
-        $current_route = null;
-        foreach ($this->routes as $route) if ($route->isMatching()) $current_route = $route;
-        if (empty($current_route)) throw new NotFoundException();
-        return $current_route;
     }
 }
