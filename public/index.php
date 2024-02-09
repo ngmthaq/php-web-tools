@@ -1,9 +1,9 @@
 <?php
 
-use Core\App;
+use App\Kernel;
 
 require_once("../vendor/autoload.php");
 
-$app = new App();
+$app = new Kernel();
 $app->preload();
 $app->run();

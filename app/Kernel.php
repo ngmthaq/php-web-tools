@@ -1,13 +1,16 @@
 <?php
 
-namespace Core;
+namespace App;
 
 use App\Http\Exceptions\AppException;
 use App\Http\Exceptions\ForbiddenException;
+use Core\Dir;
+use Core\Request;
+use Core\Response;
 use Dotenv\Dotenv;
 use i18n as I18n;
 
-class App
+class Kernel
 {
     /**
      * Init ENV with Dotenv

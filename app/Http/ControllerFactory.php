@@ -12,7 +12,7 @@ class ControllerFactory
     /**
      * Call controller from factory
      */
-    public static function call(string $controller, string $method): Closure
+    public static function make(string $controller, string $method): Closure
     {
         $reflection_class = new ReflectionClass($controller);
         $reflection_action = $reflection_class->getMethod($method);
