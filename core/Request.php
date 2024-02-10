@@ -34,4 +34,19 @@ class Request
         $route = self::getCurrentRoute();
         return $route->resolveParams();
     }
+
+    public static function preventXSS(array $params): array
+    {
+        $output = [];
+        foreach ($params as $key => $value) {
+            if (gettype($value) == "string") {
+                $output[$key] = htmlentities(trim($value));
+            } else if (gettype($value) == "array") {
+                $output[$key] = self::preventXSS($value);
+            } else {
+                $output[$key] = $value;
+            }
+        }
+        return $output;
+    }
 }
