@@ -35,6 +35,9 @@ class Request
         return $route->resolveParams();
     }
 
+    /**
+     * Prevent XSS from user request
+     */
     public static function preventXSS(array $params): array
     {
         $output = [];
@@ -48,5 +51,58 @@ class Request
             }
         }
         return $output;
+    }
+
+    /**
+     * Get query paramaters
+     */
+    public static function query(string | null $key = null)
+    {
+        $queries = self::preventXSS($_GET);
+        if (empty($key)) return $queries;
+        if (empty($queries[$key])) return null;
+        return $queries[$key];
+    }
+
+    /**
+     * Get input paramaters
+     */
+    public static function input(string | null $key = null)
+    {
+        $inputs = self::preventXSS($_POST);
+        if (empty($key)) return $inputs;
+        if (empty($inputs[$key])) return null;
+        return $inputs[$key];
+    }
+
+    /**
+     * Get URL paramaters
+     */
+    public static function param(string | null $key = null)
+    {
+        $params = self::resolveParams();
+        $params = self::preventXSS($params);
+        if (empty($key)) return $params;
+        if (empty($params[$key])) return null;
+        return $params[$key];
+    }
+
+    /**
+     * Get FILES
+     */
+    public static function files()
+    {
+        return $_FILES;
+    }
+
+    /**
+     * Get request cookies
+     */
+    public static function cookies(string | null $key = null)
+    {
+        $cookies = self::preventXSS($_COOKIE);
+        if (empty($key)) return $cookies;
+        if (empty($cookies[$key])) return null;
+        return $cookies[$key];
     }
 }
