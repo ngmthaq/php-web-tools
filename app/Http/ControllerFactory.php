@@ -18,8 +18,8 @@ class ControllerFactory
         $reflection_action = $reflection_class->getMethod($method);
         $reflection_middleware = self::getMiddleware($reflection_class, $method);
         return function () use ($controller, $reflection_action, $reflection_middleware) {
-            $middleware_result = isset($reflection_middleware) ? $reflection_middleware->invoke(new $controller()) : [];
-            $reflection_action->invokeArgs(new $controller(), $middleware_result);
+            $middleware_result = isset($reflection_middleware) ? $reflection_middleware->invoke(new $controller) : [];
+            $reflection_action->invokeArgs(new $controller, $middleware_result);
         };
     }
 

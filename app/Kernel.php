@@ -2,54 +2,21 @@
 
 namespace App;
 
-use App\Http\Exceptions\AppException;
-use App\Http\Exceptions\ForbiddenException;
+use App\Exceptions\AppException;
+use App\Exceptions\ForbiddenException;
 use Core\Dir;
 use Core\Request;
 use Core\Response;
-use Dotenv\Dotenv;
-use i18n as I18n;
 
 class Kernel
 {
-    /**
-     * Init ENV with Dotenv
-     */
-    public function initialEnv(): void
-    {
-        $dotenv = Dotenv::createImmutable(Dir::root());
-        $dotenv->safeLoad();
-    }
-
-    /**
-     * Init I18n
-     */
-    public function initI18n(): void
-    {
-        $i18n = new I18n();
-        $i18n->setCachePath(Dir::cache() . "/langs");
-        $i18n->setFilePath(Dir::resources() . "/langs/{LANGUAGE}.json");
-        $i18n->setFallbackLang('en');
-        $i18n->init();
-    }
-
-    /**
-     * Preload
-     */
-    public function preload(): void
-    {
-        session_start();
-        ob_start();
-        $this->initialEnv();
-        $this->initI18n();
-    }
-
     /**
      * Run application
      */
     public function run(): void
     {
         try {
+            $this->runMiddlewares();
             $route = Request::getCurrentRoute();
             call_user_func($route->resolvePath());
         } catch (\Throwable $th) {
@@ -62,6 +29,15 @@ class Kernel
                 $details = isProd() ? [] : $th->getTrace();
                 Response::error(Response::STT_INTERNAL_SERVER_ERROR, $message, $details);
             }
+        }
+    }
+
+    public function runMiddlewares()
+    {
+        $app_configs = require(Dir::configs() . "/app.php");
+        $global_middlewares = $app_configs["middlewares"];
+        foreach ($global_middlewares as $middleware) {
+            call_user_func_array([new $middleware, "handle"], []);
         }
     }
 }

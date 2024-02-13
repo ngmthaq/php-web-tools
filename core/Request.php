@@ -2,7 +2,7 @@
 
 namespace Core;
 
-use App\Http\Exceptions\NotFoundException;
+use App\Exceptions\NotFoundException;
 
 class Request
 {

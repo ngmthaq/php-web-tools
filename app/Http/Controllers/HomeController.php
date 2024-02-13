@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Exceptions\NotFoundException;
+use App\Exceptions\NotFoundException;
 use Core\Controller;
 use Core\Request;
 use Core\Response;
