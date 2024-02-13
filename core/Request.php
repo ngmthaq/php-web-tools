@@ -78,11 +78,11 @@ class Request
     /**
      * Get URL paramaters
      */
-    public static function param(string | null $key = null)
+    public static function param(int | null $key = null)
     {
         $params = self::resolveParams();
         $params = self::preventXSS($params);
-        if (empty($key)) return $params;
+        if ($key === null) return $params;
         if (empty($params[$key])) return null;
         return $params[$key];
     }
@@ -98,7 +98,7 @@ class Request
     /**
      * Get request cookies
      */
-    public static function cookies(string | null $key = null)
+    public static function cookie(string | null $key = null)
     {
         $cookies = self::preventXSS($_COOKIE);
         if (empty($key)) return $cookies;

@@ -23,10 +23,10 @@ class HomeController extends Controller
 
     public function productMiddleware(): array
     {
-        $params = Request::resolveParams();
-        if (empty($params[0])) throw new NotFoundException();
-        if (preg_match("/^[0-9]+$/", $params[0]) !== 1) throw new NotFoundException();
-        return [$params[0]];
+        $id = Request::param(0);
+        if (empty($id)) throw new NotFoundException();
+        if (preg_match("/^[0-9]+$/", $id) !== 1) throw new NotFoundException();
+        return [$id];
     }
 
     public function product(int $id): void
