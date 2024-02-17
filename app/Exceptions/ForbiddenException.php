@@ -7,8 +7,16 @@ namespace App\Exceptions;
  */
 class ForbiddenException extends AppException
 {
+    /**
+     * @var array $details
+     */
     protected array $details;
 
+    /**
+     * @param array $details
+     * @param string $message
+     * @param int $code
+     */
     public function __construct(
         array $details,
         string $message = "The client does not have access rights to the content",
@@ -18,7 +26,10 @@ class ForbiddenException extends AppException
         $this->details = $details;
     }
 
-    public function getDetails()
+    /**
+     * @return array
+     */
+    public function getDetails(): array
     {
         return $this->details;
     }

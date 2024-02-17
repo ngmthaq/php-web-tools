@@ -7,6 +7,10 @@ namespace App\Exceptions;
  */
 class ServiceUnavailableException extends AppException
 {
+    /**
+     * @param string $message
+     * @param int $code
+     */
     public function __construct(
         string $message = "The server is not ready to handle the request",
         int $code = 503

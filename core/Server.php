@@ -5,7 +5,7 @@ namespace Core;
 class Server
 {
     /**
-     * Get current path (not includes query string)
+     * @return string
      */
     public static function resolvePath(): string
     {
@@ -14,7 +14,7 @@ class Server
     }
 
     /**
-     * Get current request method
+     * @return string
      */
     public static function resolveMethod(): string
     {

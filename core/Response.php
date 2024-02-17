@@ -4,6 +4,8 @@ namespace Core;
 
 use App\Exceptions\NotFoundException;
 use eftec\bladeone\BladeOne;
+use Exception;
+use JetBrains\PhpStorm\NoReturn;
 
 class Response
 {
@@ -20,9 +22,13 @@ class Response
     public const STT_SERVICE_UNAVAILABLE = 503;
 
     /**
-     * Return text/html response
+     * @param string $name
+     * @param array $data
+     * @param int $status
+     * @return void
+     * @throws Exception
      */
-    public static function view(string $name, array $data = [], int $status = self::STT_OK): void
+    #[NoReturn] public static function view(string $name, array $data = [], int $status = self::STT_OK): void
     {
         $views = Dir::resources() . "/views";
         $cache = Dir::cache() . "/views";
@@ -35,9 +41,10 @@ class Response
     }
 
     /**
-     * Return application/json response
+     * @param array $data
+     * @return void
      */
-    public static function json(array $data = []): void
+    #[NoReturn] public static function json(array $data = []): void
     {
         ob_end_clean();
         http_response_code(self::STT_OK);
@@ -47,9 +54,12 @@ class Response
     }
 
     /**
-     * Return application/json error response
+     * @param int $status
+     * @param string $message
+     * @param array $details
+     * @return void
      */
-    public static function jsonError(int $status, string $message, array $details = []): void
+    #[NoReturn] public static function jsonError(int $status, string $message, array $details = []): void
     {
         ob_end_clean();
         http_response_code($status);
@@ -59,7 +69,9 @@ class Response
     }
 
     /**
-     * Return application/octet-stream (file) response
+     * @param string $attachment_location
+     * @return void
+     * @throws NotFoundException
      */
     public static function file(string $attachment_location): void
     {
@@ -78,17 +90,20 @@ class Response
     }
 
     /**
-     * Return error response
+     * @param int $status
+     * @param string $message
+     * @param array $details
+     * @return void
+     * @throws Exception
      */
-    public static function error(int $status, string $message, array $details = []): void
+    #[NoReturn] public static function error(int $status, string $message, array $details = []): void
     {
         if (self::isNeedJson()) self::jsonError($status, $message, $details);
         else self::view("errors.common", compact("status", "message", "details"), $status);
-        exit();
     }
 
     /**
-     * Check HTTP_ACCEPT === application/json
+     * @return bool
      */
     public static function isNeedJson(): bool
     {
