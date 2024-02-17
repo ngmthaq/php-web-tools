@@ -4,12 +4,14 @@ namespace App\Http\Middlewares;
 
 use Core\Dir;
 use Core\Middleware;
+use Exception;
 use i18n as I18n;
 
 class InitI18n extends Middleware
 {
     /**
-     * Init I18n
+     * @return void
+     * @throws Exception
      */
     public function handle(): void
     {

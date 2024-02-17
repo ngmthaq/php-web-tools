@@ -6,11 +6,16 @@ use Closure;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionMethod;
+use Throwable;
 
 class ControllerFactory
 {
     /**
-     * Call controller from factory
+     * @param string $controller
+     * @param string $method
+     * @return Closure
+     * @throws ReflectionException
+     * @throws Throwable
      */
     public static function make(string $controller, string $method): Closure
     {
@@ -24,13 +29,16 @@ class ControllerFactory
     }
 
     /**
-     * Get middleware
+     * @param ReflectionClass $controller
+     * @param string $method
+     * @return ReflectionMethod|null
+     * @throws ReflectionException
      */
     public static function getMiddleware(ReflectionClass $controller, string $method): ReflectionMethod | null
     {
         try {
             return $controller->getMethod($method . "Middleware");
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             if ($th instanceof ReflectionException) return null;
             throw $th;
         }

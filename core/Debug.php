@@ -2,12 +2,14 @@
 
 namespace Core;
 
+use JetBrains\PhpStorm\NoReturn;
+
 class Debug
 {
     /**
-     * Print to screen
+     * @return void
      */
-    public static function printR(): void
+    #[NoReturn] public static function printR(): void
     {
         ob_end_clean();
         $args = func_get_args();
@@ -23,9 +25,9 @@ class Debug
     }
 
     /**
-     * Show in console.log
+     * @return void
      */
-    public static function consoleLog(): void
+    #[NoReturn] public static function consoleLog(): void
     {
         ob_end_clean();
         $args = func_get_args();

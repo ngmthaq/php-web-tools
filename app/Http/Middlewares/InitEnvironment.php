@@ -9,7 +9,7 @@ use Dotenv\Dotenv;
 class InitEnvironment extends Middleware
 {
     /**
-     * Init ENV with Dotenv
+     * @return void
      */
     public function handle(): void
     {

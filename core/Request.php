@@ -7,16 +7,16 @@ use App\Exceptions\NotFoundException;
 class Request
 {
     /**
-     * Route List
+     * @return array
      */
     public static function routes(): array
     {
-        $routes = require(Dir::configs() . "/routes.php");
-        return $routes;
+        return require(Dir::configs() . "/routes.php");
     }
 
     /**
-     * Get Current Route
+     * @return Route
+     * @throws NotFoundException
      */
     public static function getCurrentRoute(): Route
     {
@@ -27,7 +27,8 @@ class Request
     }
 
     /**
-     * Resolve URL Params
+     * @return array
+     * @throws NotFoundException
      */
     public static function resolveParams(): array
     {
@@ -36,7 +37,8 @@ class Request
     }
 
     /**
-     * Prevent XSS from user request
+     * @param array $params
+     * @return array
      */
     public static function preventXSS(array $params): array
     {
@@ -54,9 +56,10 @@ class Request
     }
 
     /**
-     * Get query paramaters
+     * @param string|null $key
+     * @return array|mixed|null
      */
-    public static function query(string | null $key = null)
+    public static function query(string | null $key = null): mixed
     {
         $queries = self::preventXSS($_GET);
         if (empty($key)) return $queries;
@@ -65,9 +68,10 @@ class Request
     }
 
     /**
-     * Get input paramaters
+     * @param string|null $key
+     * @return array|mixed|null
      */
-    public static function input(string | null $key = null)
+    public static function input(string | null $key = null): mixed
     {
         $inputs = self::preventXSS($_POST);
         if (empty($key)) return $inputs;
@@ -76,9 +80,11 @@ class Request
     }
 
     /**
-     * Get URL paramaters
+     * @param int|null $key
+     * @return array|mixed|null
+     * @throws NotFoundException
      */
-    public static function param(int | null $key = null)
+    public static function param(int | null $key = null): mixed
     {
         $params = self::resolveParams();
         $params = self::preventXSS($params);
@@ -88,17 +94,18 @@ class Request
     }
 
     /**
-     * Get FILES
+     * @return array
      */
-    public static function files()
+    public static function files(): array
     {
         return $_FILES;
     }
 
     /**
-     * Get request cookies
+     * @param string|null $key
+     * @return array|mixed|null
      */
-    public static function cookie(string | null $key = null)
+    public static function cookie(string | null $key = null): mixed
     {
         $cookies = self::preventXSS($_COOKIE);
         if (empty($key)) return $cookies;

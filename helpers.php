@@ -4,7 +4,9 @@ use Core\Dir;
 use Core\Route;
 
 /**
- * Translate
+ * @param string $string
+ * @param mixed|null $args
+ * @return string
  */
 function __(string $string, mixed $args = null): string
 {
@@ -12,7 +14,8 @@ function __(string $string, mixed $args = null): string
 }
 
 /**
- * Get assets path
+ * @param string $assets_path
+ * @return string
  */
 function assets(string $assets_path): string
 {
@@ -21,12 +24,12 @@ function assets(string $assets_path): string
     $time = isProd() ? strtotime("today midnight") : time();
     $app_url = str_ends_with($app_url, "/") ? substr($app_url, 0, -1) : $app_url;
     $assets_path = str_starts_with($assets_path, "/") ?  substr($assets_path, 1) : $assets_path;
-    $full_path = "$app_url/$assets_path?v=$app_version&t=$time";
-    return $full_path;
+    return "$app_url/$assets_path?v=$app_version&t=$time";
 }
 
 /**
- * Sanitize Output
+ * @param string $buffer
+ * @return string
  */
 function sanitizeOutput(string $buffer): string
 {
@@ -47,7 +50,7 @@ function sanitizeOutput(string $buffer): string
 }
 
 /**
- * Check is production
+ * @return bool
  */
 function isProd(): bool
 {
@@ -55,7 +58,7 @@ function isProd(): bool
 }
 
 /**
- * Create new Route instance
+ * @return Route
  */
 function route(): Route
 {
