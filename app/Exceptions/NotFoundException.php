@@ -2,12 +2,11 @@
 
 namespace App\Exceptions;
 
-/**
- * NotFoundException (404)
- */
 class NotFoundException extends AppException
 {
     /**
+     * NotFoundException (404)
+     *
      * @param string $message
      * @param int $code
      */

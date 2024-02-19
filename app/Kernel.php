@@ -13,6 +13,8 @@ use Throwable;
 class Kernel
 {
     /**
+     * Start running application
+     *
      * @return void
      * @throws Exception
      */
@@ -34,6 +36,8 @@ class Kernel
     }
 
     /**
+     * Start running global middlewares
+     *
      * @return void
      */
     public function runMiddlewares(): void

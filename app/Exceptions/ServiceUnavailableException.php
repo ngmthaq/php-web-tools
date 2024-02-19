@@ -2,12 +2,11 @@
 
 namespace App\Exceptions;
 
-/**
- * ServiceUnavailableException (401)
- */
 class ServiceUnavailableException extends AppException
 {
     /**
+     * ServiceUnavailableException (503)
+     *
      * @param string $message
      * @param int $code
      */

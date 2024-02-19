@@ -7,6 +7,8 @@ use JetBrains\PhpStorm\NoReturn;
 class Debug
 {
     /**
+     * Debug with print_r function
+     *
      * @return void
      */
     #[NoReturn] public static function printR(): void
@@ -25,6 +27,8 @@ class Debug
     }
 
     /**
+     * Debug with console.log function
+     *
      * @return void
      */
     #[NoReturn] public static function consoleLog(): void

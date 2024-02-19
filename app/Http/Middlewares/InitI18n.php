@@ -10,6 +10,8 @@ use i18n as I18n;
 class InitI18n extends Middleware
 {
     /**
+     * Handle load i18n
+     *
      * @return void
      * @throws Exception
      */

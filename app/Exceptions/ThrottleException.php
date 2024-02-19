@@ -2,12 +2,11 @@
 
 namespace App\Exceptions;
 
-/**
- * ThrottleException (401)
- */
 class ThrottleException extends AppException
 {
     /**
+     * ThrottleException (429)
+     *
      * @param string $message
      * @param int $code
      */

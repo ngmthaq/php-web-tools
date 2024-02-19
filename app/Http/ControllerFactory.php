@@ -11,6 +11,8 @@ use Throwable;
 class ControllerFactory
 {
     /**
+     * Make controller from route configs
+     *
      * @param string $controller
      * @param string $method
      * @return Closure
@@ -29,6 +31,8 @@ class ControllerFactory
     }
 
     /**
+     * Get middleware of the current route
+     *
      * @param ReflectionClass $controller
      * @param string $method
      * @return ReflectionMethod|null

@@ -5,6 +5,8 @@ namespace Core;
 class Server
 {
     /**
+     * Get current path name
+     *
      * @return string
      */
     public static function resolvePath(): string
@@ -14,6 +16,8 @@ class Server
     }
 
     /**
+     * Get current method
+     *
      * @return string
      */
     public static function resolveMethod(): string

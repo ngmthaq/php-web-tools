@@ -2,12 +2,11 @@
 
 namespace App\Exceptions;
 
-/**
- * UnauthorizedException (401)
- */
 class UnauthorizedException extends AppException
 {
     /**
+     * UnauthorizedException (401)
+     *
      * @param string $message
      * @param int $code
      */

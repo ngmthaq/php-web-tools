@@ -22,6 +22,8 @@ class Response
     public const STT_SERVICE_UNAVAILABLE = 503;
 
     /**
+     * Response with view (text/html)
+     *
      * @param string $name
      * @param array $data
      * @param int $status
@@ -41,6 +43,8 @@ class Response
     }
 
     /**
+     * Response with json (application/json)
+     *
      * @param array $data
      * @return void
      */
@@ -54,6 +58,8 @@ class Response
     }
 
     /**
+     * Response with error json (application/json)
+     *
      * @param int $status
      * @param string $message
      * @param array $details
@@ -69,6 +75,8 @@ class Response
     }
 
     /**
+     * Response with file
+     *
      * @param string $attachment_location
      * @return void
      * @throws NotFoundException
@@ -90,6 +98,8 @@ class Response
     }
 
     /**
+     * Response with error (text/html or application/json)
+     *
      * @param int $status
      * @param string $message
      * @param array $details
@@ -103,6 +113,8 @@ class Response
     }
 
     /**
+     * Check json needed
+     *
      * @return bool
      */
     public static function isNeedJson(): bool

@@ -2,12 +2,11 @@
 
 namespace App\Exceptions;
 
-/**
- * BadRequestException (400)
- */
 class BadRequestException extends AppException
 {
     /**
+     * BadRequestException (400)
+     *
      * @param string $message
      * @param int $code
      */

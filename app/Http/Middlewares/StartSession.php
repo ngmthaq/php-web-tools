@@ -7,6 +7,8 @@ use Core\Middleware;
 class StartSession extends Middleware
 {
     /**
+     * Handle start session
+     *
      * @return void
      */
     public function handle(): void

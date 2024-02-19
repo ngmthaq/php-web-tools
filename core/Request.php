@@ -7,6 +7,8 @@ use App\Exceptions\NotFoundException;
 class Request
 {
     /**
+     * Get all routes
+     *
      * @return array
      */
     public static function routes(): array
@@ -15,6 +17,8 @@ class Request
     }
 
     /**
+     * Get current route
+     *
      * @return Route
      * @throws NotFoundException
      */
@@ -27,6 +31,8 @@ class Request
     }
 
     /**
+     * Resolve params from url
+     *
      * @return array
      * @throws NotFoundException
      */
@@ -37,6 +43,8 @@ class Request
     }
 
     /**
+     * Quick prevent XSS attack
+     *
      * @param array $params
      * @return array
      */
@@ -56,6 +64,8 @@ class Request
     }
 
     /**
+     * Get query string parameters
+     *
      * @param string|null $key
      * @return array|mixed|null
      */
@@ -68,6 +78,8 @@ class Request
     }
 
     /**
+     * Get data from FormData
+     *
      * @param string|null $key
      * @return array|mixed|null
      */
@@ -80,6 +92,8 @@ class Request
     }
 
     /**
+     * Get params from URL
+     *
      * @param int|null $key
      * @return array|mixed|null
      * @throws NotFoundException
@@ -94,6 +108,8 @@ class Request
     }
 
     /**
+     * Get files from multipart/form-data
+     *
      * @return array
      */
     public static function files(): array
@@ -102,6 +118,8 @@ class Request
     }
 
     /**
+     * Get request cookie data
+     *
      * @param string|null $key
      * @return array|mixed|null
      */

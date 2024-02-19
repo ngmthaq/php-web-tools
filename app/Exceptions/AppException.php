@@ -4,12 +4,11 @@ namespace App\Exceptions;
 
 use Exception;
 
-/**
- * AppException
- */
 class AppException extends Exception
 {
     /**
+     * AppException
+     *
      * @param string $message
      * @param int $code
      */

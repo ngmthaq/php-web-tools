@@ -2,9 +2,6 @@
 
 namespace App\Exceptions;
 
-/**
- * ForbiddenException (401)
- */
 class ForbiddenException extends AppException
 {
     /**
@@ -13,6 +10,8 @@ class ForbiddenException extends AppException
     protected array $details;
 
     /**
+     * ForbiddenException (403)
+     *
      * @param array $details
      * @param string $message
      * @param int $code
@@ -27,6 +26,8 @@ class ForbiddenException extends AppException
     }
 
     /**
+     * Get error details
+     *
      * @return array
      */
     public function getDetails(): array

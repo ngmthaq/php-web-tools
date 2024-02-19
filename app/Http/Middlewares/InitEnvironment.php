@@ -9,6 +9,8 @@ use Dotenv\Dotenv;
 class InitEnvironment extends Middleware
 {
     /**
+     * Handle load .env file to $_ENV
+     *
      * @return void
      */
     public function handle(): void

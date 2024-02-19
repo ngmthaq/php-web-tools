@@ -8,6 +8,8 @@ namespace Core;
 class Dir
 {
     /**
+     * Get root dir
+     *
      * @return string
      */
     public static function root(): string
@@ -16,6 +18,8 @@ class Dir
     }
 
     /**
+     * Get app dir
+     *
      * @return string
      */
     public static function app(): string
@@ -24,6 +28,8 @@ class Dir
     }
 
     /**
+     * Get cache dir
+     *
      * @return string
      */
     public static function cache(): string
@@ -32,6 +38,8 @@ class Dir
     }
 
     /**
+     * Get core dir
+     *
      * @return string
      */
     public static function core(): string
@@ -40,6 +48,8 @@ class Dir
     }
 
     /**
+     * Get configs dir
+     *
      * @return string
      */
     public static function configs(): string
@@ -48,6 +58,8 @@ class Dir
     }
 
     /**
+     * Get public dir
+     *
      * @return string
      */
     public static function public(): string
@@ -56,6 +68,8 @@ class Dir
     }
 
     /**
+     * Get resources dir
+     *
      * @return string
      */
     public static function resources(): string
@@ -64,6 +78,8 @@ class Dir
     }
 
     /**
+     * Get routes dir
+     *
      * @return string
      */
     public static function routes(): string
@@ -72,6 +88,8 @@ class Dir
     }
 
     /**
+     * Get tools dir
+     *
      * @return string
      */
     public static function tools(): string

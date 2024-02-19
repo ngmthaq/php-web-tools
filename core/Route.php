@@ -22,6 +22,8 @@ class Route
     public Closure $_action;
 
     /**
+     * Set method
+     *
      * @param string $method
      * @return $this
      */
@@ -32,6 +34,8 @@ class Route
     }
 
     /**
+     * Set path
+     *
      * @param string $path
      * @return $this
      */
@@ -42,6 +46,8 @@ class Route
     }
 
     /**
+     * Set action
+     *
      * @param Closure $action
      * @return $this
      */
@@ -52,6 +58,8 @@ class Route
     }
 
     /**
+     * Check matching route
+     *
      * @return bool
      */
     public function isMatching(): bool
@@ -70,6 +78,8 @@ class Route
     }
 
     /**
+     * Resolve path and get action
+     *
      * @return Closure
      */
     public function resolvePath(): Closure
@@ -78,6 +88,8 @@ class Route
     }
 
     /**
+     * Resolve params from URL
+     *
      * @return array
      */
     public function resolveParams(): array
@@ -92,6 +104,8 @@ class Route
     }
 
     /**
+     * Check if path need convert to regex format
+     *
      * @return bool
      */
     public function isNeedRegex(): bool
@@ -102,6 +116,8 @@ class Route
     }
 
     /**
+     * Get regex path
+     *
      * @return string
      */
     public function regexPath(): string
