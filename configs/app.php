@@ -1,10 +1,5 @@
 <?php
 
-use App\Http\Middlewares\InitEnvironment;
-use App\Http\Middlewares\InitI18n;
-use App\Http\Middlewares\StartOutputBuffer;
-use App\Http\Middlewares\StartSession;
-
 /**
  * Application Configs
  */
@@ -19,9 +14,11 @@ return [
      * Global middlewares
      */
     "middlewares" => [
-        StartSession::class,
-        StartOutputBuffer::class,
-        InitEnvironment::class,
-        InitI18n::class,
+        \App\Http\Middlewares\StartSession::class,
+        \App\Http\Middlewares\StartOutputBuffer::class,
+        \App\Http\Middlewares\InitEnvironment::class,
+        \App\Http\Middlewares\InitI18n::class,
+        \App\Http\Middlewares\VerifyCSRF::class,
+        \App\Http\Middlewares\LimitRequest::class,
     ],
 ];
