@@ -70,10 +70,10 @@ class Route
         if ($this->isNeedRegex()) {
             $regex_path = $this->regexPath();
             $preg_match = preg_match($regex_path, $path);
-            return $preg_match === 1 && $method_cmp  === 0;
+            return $preg_match === 1 && $method_cmp === 0;
         } else {
             $path_cmp = strcmp(strtolower($path), strtolower($this->_path));
-            return $path_cmp === 0 && $method_cmp  === 0;
+            return $path_cmp === 0 && $method_cmp === 0;
         }
     }
 
@@ -98,7 +98,7 @@ class Route
         $pattern = $this->regexPath();
         $path = Server::resolvePath();
         preg_match_all($pattern, $path, $matches);
-        $full_params = array_map(fn ($match) =>  $match[0], $matches);
+        $full_params = array_map(fn ($match) => $match[0], $matches);
         $params = array_filter($full_params, fn ($_, $index) => $index > 0, ARRAY_FILTER_USE_BOTH);
         return array_values($params);
     }
