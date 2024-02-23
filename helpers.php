@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Middlewares\VerifyCSRF;
 use Core\Dir;
 use Core\Route;
 
 /**
+ * Translate
+ *
  * @param string $string
  * @param mixed|null $args
  * @return string
@@ -14,6 +17,8 @@ function __(string $string, mixed $args = null): string
 }
 
 /**
+ * Get full assets path
+ *
  * @param string $assets_path
  * @return string
  */
@@ -28,6 +33,8 @@ function assets(string $assets_path): string
 }
 
 /**
+ * Sanitize Output
+ *
  * @param string $buffer
  * @return string
  */
@@ -50,6 +57,8 @@ function sanitizeOutput(string $buffer): string
 }
 
 /**
+ * Check prod env
+ *
  * @return bool
  */
 function isProd(): bool
@@ -58,9 +67,53 @@ function isProd(): bool
 }
 
 /**
+ * Init Route
+ *
  * @return Route
  */
 function route(): Route
 {
     return new Route();
+}
+
+/**
+ * Get random string
+ *
+ * @param int $length
+ * @return string
+ * @throws Exception
+ */
+function randomString(int $length = 16): string
+{
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[random_int(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+
+/**
+ * Generate XSRF meta tag
+ *
+ * @return string
+ */
+function xsrfMetaTag(): string
+{
+    $key = VerifyCSRF::SESSION_KEY;
+    $xsrf_token = $_SESSION[$key] ?? "";
+    return "<meta name=\"$key\" content=\"$xsrf_token\">";
+}
+
+/**
+ * Generate XSRF input tag
+ *
+ * @return string
+ */
+function xsrfInputTag(): string
+{
+    $key = VerifyCSRF::SESSION_KEY;
+    $xsrf_token = $_SESSION[$key] ?? "";
+    return "<input type=\"hidden\" name=\"$key\" value=\"$xsrf_token\">";
 }

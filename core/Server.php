@@ -24,4 +24,14 @@ class Server
     {
         return $_SERVER['REQUEST_METHOD'];
     }
+
+    /**
+     * Resolve request origin
+     *
+     * @return string|null
+     */
+    public static function resolveOrigin(): string | null
+    {
+        return $_SERVER['HTTP_ORIGIN'];
+    }
 }

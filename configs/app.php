@@ -4,6 +4,14 @@
  * Application Configs
  */
 
+use App\Http\Middlewares\InitEnvironment;
+use App\Http\Middlewares\InitI18n;
+use App\Http\Middlewares\LimitRequest;
+use App\Http\Middlewares\StartOutputBuffer;
+use App\Http\Middlewares\StartSession;
+use App\Http\Middlewares\VerifyCORS;
+use App\Http\Middlewares\VerifyCSRF;
+
 return [
     /**
      * Create Symlinks with PHP Tools
@@ -14,11 +22,25 @@ return [
      * Global middlewares
      */
     "middlewares" => [
-        \App\Http\Middlewares\StartSession::class,
-        \App\Http\Middlewares\StartOutputBuffer::class,
-        \App\Http\Middlewares\InitEnvironment::class,
-        \App\Http\Middlewares\InitI18n::class,
-        \App\Http\Middlewares\VerifyCSRF::class,
-        \App\Http\Middlewares\LimitRequest::class,
+        StartSession::class,
+        StartOutputBuffer::class,
+        InitEnvironment::class,
+        InitI18n::class,
+        VerifyCSRF::class,
+        VerifyCORS::class,
+        LimitRequest::class,
     ],
+
+    /**
+     * CORS configs
+     */
+    "cors" => [
+      "methods" => "*",
+      "origins" => "*",
+    ],
+
+    /**
+     * Throttle configs (request per minute)
+     */
+    "throttle" => 30,
 ];
