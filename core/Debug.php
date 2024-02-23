@@ -42,4 +42,34 @@ class Debug
         }
         die();
     }
+
+    /**
+     * Write info logs into file
+     *
+     * @param string $message
+     * @return void
+     */
+    public static function info(string $message): void {
+        $date = gmdate("Y-m-d", time());
+        $time = gmdate("H:i:s", time());
+        $ip = getClientIp();
+        $log_file = Dir::cache() . "/logs/system-$date.log";
+        $info_message = "[$date $time UTC - $ip] INFO: $message \n";
+        error_log($info_message, 3, $log_file);
+    }
+
+    /**
+     * Write error logs into file
+     *
+     * @param string $message
+     * @return void
+     */
+    public static function error(string $message): void {
+        $date = gmdate("Y-m-d", time());
+        $time = gmdate("H:i:s", time());
+        $ip = getClientIp();
+        $log_file = Dir::cache() . "/logs/system-$date.log";
+        $info_message = "[$date $time UTC - $ip] ERROR: $message \n";
+        error_log($info_message, 3, $log_file);
+    }
 }

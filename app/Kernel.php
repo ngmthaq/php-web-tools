@@ -5,6 +5,7 @@ namespace App;
 use App\Exceptions\AppException;
 use App\Exceptions\FailureValidationException;
 use App\Exceptions\ForbiddenException;
+use Core\Debug;
 use Core\Dir;
 use Core\Request;
 use Core\Response;
@@ -32,8 +33,11 @@ class Kernel
         } catch (AppException $th) {
             Response::error($th->getCode(), $th->getMessage());
         } catch (Throwable $th) {
-            $message = isProd() ? "The server has encountered a situation it does not know how to handle" : $th->getMessage();
+            $error_message = $th->getMessage() . " (" . $th->getFile() . ":" . $th->getLine() . ")";
+            $message = isProd() ? "The server has encountered a situation it does not know how to handle" : $error_message;
             $details = isProd() ? [] : $th->getTrace();
+            $debug_message = $error_message . "\n" . $th->getTraceAsString() . "\n";
+            Debug::error($debug_message);
             Response::error(Response::STT_INTERNAL_SERVER_ERROR, $message, $details);
         }
     }
