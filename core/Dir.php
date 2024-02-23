@@ -8,16 +8,6 @@ namespace Core;
 class Dir
 {
     /**
-     * Get root dir
-     *
-     * @return string
-     */
-    public static function root(): string
-    {
-        return str_replace("/core", "", __DIR__);
-    }
-
-    /**
      * Get app dir
      *
      * @return string
@@ -25,6 +15,16 @@ class Dir
     public static function app(): string
     {
         return self::root() . "/app";
+    }
+
+    /**
+     * Get root dir
+     *
+     * @return string
+     */
+    public static function root(): string
+    {
+        return str_replace("/core", "", __DIR__);
     }
 
     /**

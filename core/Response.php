@@ -22,27 +22,6 @@ class Response
     public const STT_SERVICE_UNAVAILABLE = 503;
 
     /**
-     * Response with view (text/html)
-     *
-     * @param string $name
-     * @param array $data
-     * @param int $status
-     * @return void
-     * @throws Exception
-     */
-    #[NoReturn] public static function view(string $name, array $data = [], int $status = self::STT_OK): void
-    {
-        $views = Dir::resources() . "/views";
-        $cache = Dir::cache() . "/views";
-        $blade = new BladeOne($views, $cache, isProd() ? BladeOne::MODE_AUTO : BladeOne::MODE_DEBUG);
-        $blade->pipeEnable = true;
-        ob_end_clean();
-        http_response_code($status);
-        echo sanitizeOutput($blade->run($name, $data));
-        exit();
-    }
-
-    /**
      * Response with json (application/json)
      *
      * @param array $data
@@ -54,23 +33,6 @@ class Response
         http_response_code(self::STT_OK);
         header("Content-Type: application/json; charset=utf-8");
         echo json_encode($data);
-        exit();
-    }
-
-    /**
-     * Response with error json (application/json)
-     *
-     * @param int $status
-     * @param string $message
-     * @param array $details
-     * @return void
-     */
-    #[NoReturn] public static function jsonError(int $status, string $message, array $details = []): void
-    {
-        ob_end_clean();
-        http_response_code($status);
-        header("Content-Type: application/json; charset=utf-8");
-        echo json_encode(compact("message", "details"));
         exit();
     }
 
@@ -120,5 +82,43 @@ class Response
     public static function isNeedJson(): bool
     {
         return $_SERVER["HTTP_ACCEPT"] === "application/json";
+    }
+
+    /**
+     * Response with error json (application/json)
+     *
+     * @param int $status
+     * @param string $message
+     * @param array $details
+     * @return void
+     */
+    #[NoReturn] public static function jsonError(int $status, string $message, array $details = []): void
+    {
+        ob_end_clean();
+        http_response_code($status);
+        header("Content-Type: application/json; charset=utf-8");
+        echo json_encode(compact("message", "details"));
+        exit();
+    }
+
+    /**
+     * Response with view (text/html)
+     *
+     * @param string $name
+     * @param array $data
+     * @param int $status
+     * @return void
+     * @throws Exception
+     */
+    #[NoReturn] public static function view(string $name, array $data = [], int $status = self::STT_OK): void
+    {
+        $views = Dir::resources() . "/views";
+        $cache = Dir::cache() . "/views";
+        $blade = new BladeOne($views, $cache, isProd() ? BladeOne::MODE_AUTO : BladeOne::MODE_DEBUG);
+        $blade->pipeEnable = true;
+        ob_end_clean();
+        http_response_code($status);
+        echo sanitizeOutput($blade->run($name, $data));
+        exit();
     }
 }

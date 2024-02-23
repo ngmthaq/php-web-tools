@@ -17,10 +17,11 @@ class FailureValidationException extends AppException
      * @param int $code
      */
     public function __construct(
-        array $details,
+        array  $details,
         string $message = "The request was well-formed but was unable to be followed due to semantic errors.",
-        int $code = 422
-    ) {
+        int    $code = 422
+    )
+    {
         parent::__construct($message, $code);
         $this->details = $details;
     }

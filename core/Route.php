@@ -88,22 +88,6 @@ class Route
     }
 
     /**
-     * Resolve params from URL
-     *
-     * @return array
-     */
-    public function resolveParams(): array
-    {
-        $matches = [];
-        $pattern = $this->regexPath();
-        $path = Server::resolvePath();
-        preg_match_all($pattern, $path, $matches);
-        $full_params = array_map(fn ($match) => $match[0], $matches);
-        $params = array_filter($full_params, fn ($_, $index) => $index > 0, ARRAY_FILTER_USE_BOTH);
-        return array_values($params);
-    }
-
-    /**
      * Check if path need convert to regex format
      *
      * @return bool
@@ -127,5 +111,21 @@ class Route
         $path = preg_replace($pattern_1, '(.+)', $this->_path);
         $regex = str_replace($pattern_2, '\/', $path);
         return "/" . $regex . "/";
+    }
+
+    /**
+     * Resolve params from URL
+     *
+     * @return array
+     */
+    public function resolveParams(): array
+    {
+        $matches = [];
+        $pattern = $this->regexPath();
+        $path = Server::resolvePath();
+        preg_match_all($pattern, $path, $matches);
+        $full_params = array_map(fn($match) => $match[0], $matches);
+        $params = array_filter($full_params, fn($_, $index) => $index > 0, ARRAY_FILTER_USE_BOTH);
+        return array_values($params);
     }
 }

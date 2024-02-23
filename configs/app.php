@@ -37,8 +37,8 @@ return [
      * CORS configs
      */
     "cors" => [
-      "methods" => "*",
-      "origins" => "*",
+        "methods" => "*",
+        "origins" => "*",
     ],
 
     /**

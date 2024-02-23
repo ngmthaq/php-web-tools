@@ -17,10 +17,11 @@ class ForbiddenException extends AppException
      * @param int $code
      */
     public function __construct(
-        array $details,
+        array  $details,
         string $message = "The client does not have access rights to the content",
-        int $code = 403
-    ) {
+        int    $code = 403
+    )
+    {
         parent::__construct($message, $code);
         $this->details = $details;
     }

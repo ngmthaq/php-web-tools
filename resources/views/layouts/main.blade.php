@@ -18,14 +18,14 @@
 </head>
 
 <body>
-    {{-- Body Content --}}
-    @yield('body')
+{{-- Body Content --}}
+@yield('body')
 
-    {{-- Main Script --}}
-    <script src="{{ assets('bundles/main.bundle.js') }}"></script>
+{{-- Main Script --}}
+<script src="{{ assets('bundles/main.bundle.js') }}"></script>
 
-    {{-- Script Stacks --}}
-    @stack('js')
+{{-- Script Stacks --}}
+@stack('js')
 </body>
 
 </html>

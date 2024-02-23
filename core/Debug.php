@@ -49,7 +49,8 @@ class Debug
      * @param string $message
      * @return void
      */
-    public static function info(string $message): void {
+    public static function info(string $message): void
+    {
         $date = gmdate("Y-m-d", time());
         $time = gmdate("H:i:s", time());
         $ip = getClientIp();
@@ -64,7 +65,8 @@ class Debug
      * @param string $message
      * @return void
      */
-    public static function error(string $message): void {
+    public static function error(string $message): void
+    {
         $date = gmdate("Y-m-d", time());
         $time = gmdate("H:i:s", time());
         $ip = getClientIp();

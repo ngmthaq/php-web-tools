@@ -28,7 +28,7 @@ function assets(string $assets_path): string
     $app_version = $_ENV["APP_VERSION"];
     $time = isProd() ? strtotime("today midnight") : time();
     $app_url = str_ends_with($app_url, "/") ? substr($app_url, 0, -1) : $app_url;
-    $assets_path = str_starts_with($assets_path, "/") ?  substr($assets_path, 1) : $assets_path;
+    $assets_path = str_starts_with($assets_path, "/") ? substr($assets_path, 1) : $assets_path;
     return "$app_url/$assets_path?v=$app_version&t=$time";
 }
 
@@ -125,7 +125,7 @@ function xsrfInputTag(): string
  * @param string|null $message
  * @return string
  */
-function flashMessage(string $key, string | null $message = null): string
+function flashMessage(string $key, string|null $message = null): string
 {
     if (empty($_SESSION["APP-FLASH-MESSAGE"])) $_SESSION["APP-FLASH-MESSAGE"] = [];
     if (empty($message)) {

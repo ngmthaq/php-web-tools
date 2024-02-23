@@ -38,7 +38,7 @@ class ControllerFactory
      * @return ReflectionMethod|null
      * @throws ReflectionException
      */
-    public static function getMiddleware(ReflectionClass $controller, string $method): ReflectionMethod | null
+    public static function getMiddleware(ReflectionClass $controller, string $method): ReflectionMethod|null
     {
         try {
             return $controller->getMethod($method . "Middleware");

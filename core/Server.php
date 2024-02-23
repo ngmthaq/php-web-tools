@@ -30,7 +30,7 @@ class Server
      *
      * @return string|null
      */
-    public static function resolveOrigin(): string | null
+    public static function resolveOrigin(): string|null
     {
         return $_SERVER['HTTP_ORIGIN'];
     }

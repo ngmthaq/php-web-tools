@@ -9,11 +9,11 @@
 </head>
 
 <body>
-    <h1>{{ $status }}</h1>
-    <p>{{ $message }}</p>
-    @if (isProd() === false)
-        <code>{{ json_encode($details) }}</code>
-    @endif
+<h1>{{ $status }}</h1>
+<p>{{ $message }}</p>
+@if (isProd() === false)
+    <code>{{ json_encode($details) }}</code>
+@endif
 </body>
 
 </html>

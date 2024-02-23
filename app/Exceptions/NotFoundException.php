@@ -12,8 +12,9 @@ class NotFoundException extends AppException
      */
     public function __construct(
         string $message = "The server cannot find the requested resource",
-        int $code = 404
-    ) {
+        int    $code = 404
+    )
+    {
         parent::__construct($message, $code);
     }
 }
