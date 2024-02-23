@@ -117,3 +117,22 @@ function xsrfInputTag(): string
     $xsrf_token = $_SESSION[$key] ?? "";
     return "<input type=\"hidden\" name=\"$key\" value=\"$xsrf_token\">";
 }
+
+/**
+ * Get/Set flash message
+ *
+ * @param string $key
+ * @param string|null $message
+ * @return string
+ */
+function flashMessage(string $key, string | null $message = null): string
+{
+    if (empty($_SESSION["APP-FLASH-MESSAGE"])) $_SESSION["APP-FLASH-MESSAGE"] = [];
+    if (empty($message)) {
+        $message = $_SESSION["APP-FLASH-MESSAGE"][$key] ?? "";
+        unset($_SESSION["APP-FLASH-MESSAGE"][$key]);
+    } else {
+        $_SESSION["APP-FLASH-MESSAGE"][$key] = $message;
+    }
+    return $message;
+}

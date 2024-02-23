@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Exceptions\AppException;
+use App\Exceptions\FailureValidationException;
 use App\Exceptions\ForbiddenException;
 use Core\Dir;
 use Core\Request;
@@ -25,6 +26,8 @@ class Kernel
             $route = Request::getCurrentRoute();
             call_user_func($route->resolvePath());
         } catch (ForbiddenException $th) {
+            Response::error($th->getCode(), $th->getMessage(), $th->getDetails());
+        } catch (FailureValidationException $th) {
             Response::error($th->getCode(), $th->getMessage(), $th->getDetails());
         } catch (AppException $th) {
             Response::error($th->getCode(), $th->getMessage());

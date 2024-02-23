@@ -4,6 +4,7 @@
  * Application Configs
  */
 
+use App\Http\Middlewares\CheckServerStatus;
 use App\Http\Middlewares\InitEnvironment;
 use App\Http\Middlewares\InitI18n;
 use App\Http\Middlewares\LimitRequest;
@@ -25,6 +26,7 @@ return [
         StartSession::class,
         StartOutputBuffer::class,
         InitEnvironment::class,
+        CheckServerStatus::class,
         InitI18n::class,
         VerifyCSRF::class,
         VerifyCORS::class,

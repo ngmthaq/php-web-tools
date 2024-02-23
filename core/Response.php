@@ -70,7 +70,7 @@ class Response
         ob_end_clean();
         http_response_code($status);
         header("Content-Type: application/json; charset=utf-8");
-        echo json_encode(compact("status", "message", "details"));
+        echo json_encode(compact("message", "details"));
         exit();
     }
 
