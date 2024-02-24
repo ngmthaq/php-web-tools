@@ -10,17 +10,7 @@ RUN apt-get update -y
 
 RUN apt-get upgrade -y
 
-RUN apt-get install -y libzip-dev
-
-RUN apt install -y wget vim git zip unzip python3 python3-pip
-
-RUN docker-php-ext-install zip && docker-php-ext-enable zip
-
-RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
-
-RUN docker-php-ext-install pdo && docker-php-ext-enable pdo
-
-RUN docker-php-ext-install pdo_mysql && docker-php-ext-enable pdo_mysql
+RUN apt-get install -y libzip-dev wget vim git zip unzip python3 python3-pip
 
 COPY php.ini $PHP_INI_DIR/php.ini
 
