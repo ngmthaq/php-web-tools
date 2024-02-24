@@ -6,6 +6,7 @@ use App\Exceptions\BadRequestException;
 use Core\Middleware;
 use Core\Request;
 use Core\Server;
+use Core\Str;
 use Exception;
 
 class VerifyCSRF extends Middleware
@@ -22,7 +23,7 @@ class VerifyCSRF extends Middleware
     {
         // Init XSRF Token
         if (empty($_SESSION[self::SESSION_KEY])) {
-            $_SESSION[self::SESSION_KEY] = randomString(64);
+            $_SESSION[self::SESSION_KEY] = Str::random(64);
         }
 
         // Check XSRF Token
