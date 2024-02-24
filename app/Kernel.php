@@ -29,9 +29,10 @@ class Kernel
         } catch (ForbiddenException $th) {
             Response::error($th->getCode(), $th->getMessage(), $th->getDetails());
         } catch (FailureValidationException $th) {
-            Response::error($th->getCode(), $th->getMessage(), $th->getDetails());
+            Response::validationError($th->getMessage(), $th->getDetails());
         } catch (AppException $th) {
-            Response::error($th->getCode(), $th->getMessage());
+            $details = isProd() ? [] : $th->getTrace();
+            Response::error($th->getCode(), $th->getMessage(), $details);
         } catch (Throwable $th) {
             $error_message = $th->getMessage() . " (" . $th->getFile() . ":" . $th->getLine() . ")";
             $message = isProd() ? "The server has encountered a situation it does not know how to handle" : $error_message;

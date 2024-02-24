@@ -29,7 +29,7 @@ class VerifyCSRF extends Middleware
         if (Server::resolveMethod() !== "GET"
             && (empty(Request::input(self::SESSION_KEY))
                 || Request::input(self::SESSION_KEY) !== $_SESSION[self::SESSION_KEY])) {
-            throw new BadRequestException("CSRF token mismatch");
+            throw new BadRequestException("CSRF Token Mismatch");
         }
     }
 }

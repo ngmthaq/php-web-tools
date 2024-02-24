@@ -3,6 +3,7 @@
 use App\Http\Middlewares\VerifyCSRF;
 use Core\Dir;
 use Core\Route;
+use Core\Server;
 
 /**
  * Translate
@@ -107,15 +108,20 @@ function xsrfMetaTag(): string
 }
 
 /**
- * Generate XSRF input tag
+ * Generate XSRF input tag and Redirect path
  *
  * @return string
  */
-function xsrfInputTag(): string
+function formHiddenInputTags(): string
 {
+    $path = Server::resolveFullPath();
+    $path_key = Server::PREV_PATH_KEY;
     $key = VerifyCSRF::SESSION_KEY;
     $xsrf_token = $_SESSION[$key] ?? "";
-    return "<input type=\"hidden\" name=\"$key\" value=\"$xsrf_token\">";
+    return implode("\n", [
+        "<input type=\"hidden\" name=\"$key\" value=\"$xsrf_token\">",
+        "<input type=\"hidden\" name=\"$path_key\" value=\"$path\">",
+    ]);
 }
 
 /**

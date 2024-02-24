@@ -4,6 +4,8 @@ namespace Core;
 
 class Server
 {
+    public const PREV_PATH_KEY = "PREV-PATH-FOR-VALIDATION";
+
     /**
      * Get current path name
      *
@@ -13,6 +15,16 @@ class Server
     {
         $redirect_url = $_SERVER['REDIRECT_URL'];
         return str_replace('/public', '', $redirect_url);
+    }
+
+    /**
+     * Get full path
+     *
+     * @return string
+     */
+    public static function resolveFullPath(): string
+    {
+        return $_SERVER['REQUEST_URI'];
     }
 
     /**
