@@ -27,9 +27,10 @@ class VerifyCSRF extends Middleware
         }
 
         // Check XSRF Token
-        if (Server::resolveMethod() !== "GET"
-            && (empty(Request::input(self::SESSION_KEY))
-                || Request::input(self::SESSION_KEY) !== $_SESSION[self::SESSION_KEY])) {
+        $route = Request::getCurrentRoute();
+        if (!$route->isSkipXSRF()
+            && Server::resolveMethod() !== "GET"
+            && (empty(Request::input(self::SESSION_KEY)) || Request::input(self::SESSION_KEY) !== $_SESSION[self::SESSION_KEY])) {
             throw new BadRequestException(isProd()
                 ? "CSRF Token Mismatch"
                 : "CSRF Token Mismatch. Attach '" . self::SESSION_KEY . ": " . $_SESSION[self::SESSION_KEY] . "' in your request body");

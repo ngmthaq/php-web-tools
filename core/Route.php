@@ -6,20 +6,10 @@ use Closure;
 
 class Route
 {
-    /**
-     * Request Method
-     */
     public string $_method;
-
-    /**
-     * Request Path
-     */
     public string $_path;
-
-    /**
-     * Request Action
-     */
     public Closure $_action;
+    public bool $_is_skip_x_csrf_verification = false;
 
     /**
      * Set method
@@ -55,6 +45,27 @@ class Route
     {
         $this->_action = $action;
         return $this;
+    }
+
+    /**
+     * Configs X-CSRF-Token
+     *
+     * @return $this
+     */
+    public function skipXSRF(): Route
+    {
+        $this->_is_skip_x_csrf_verification = true;
+        return $this;
+    }
+
+    /**
+     * Check if server can skip check X-CSRF-Token
+     *
+     * @return bool
+     */
+    public function isSkipXSRF(): bool
+    {
+        return $this->_is_skip_x_csrf_verification;
     }
 
     /**
