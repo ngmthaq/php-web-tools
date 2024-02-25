@@ -45,4 +45,9 @@ return [
      * Throttle configs (request per minute)
      */
     "throttle" => 30,
+
+    /**
+     * Cipher method
+     */
+    "cipher_method" => "AES-256-CBC",
 ];

@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\FailureValidationException;
 use App\Exceptions\NotFoundException;
+use Core\AccessToken;
 use Core\Controller;
+use Core\Debug;
+use Core\Hash;
 use Core\Request;
 use Core\Response;
 use Exception;
@@ -18,7 +21,11 @@ class HomeController extends Controller
      */
     #[NoReturn] public function index(): void
     {
-        Response::view("pages.home");
+        $username = "thangnm";
+        $password = Hash::make("thang2000");
+        $token = AccessToken::generate($username, $password);
+        $payload = AccessToken::getPayload($token);
+        Debug::printR($username, $password, $token, $payload);
     }
 
     /**

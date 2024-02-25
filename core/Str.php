@@ -39,4 +39,29 @@ class Str
             mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
         );
     }
+
+    /**
+     * Base64 URL Encode
+     *
+     * @param string $data
+     * @return string
+     */
+    public static function base64UrlEncode(string $data): string
+    {
+        return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
+    }
+
+    /**
+     * Base64 URL Decode
+     *
+     * @param string $data
+     * @return string
+     * @throws Exception
+     */
+    public static function base64UrlDecode(string $data): string
+    {
+        $output = base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '='));
+        if ($output === false) throw new Exception("Cannot decode base64 url", Response::STT_INTERNAL_SERVER_ERROR);
+        return $output;
+    }
 }
