@@ -2,6 +2,7 @@
 
 use App\Http\Middlewares\VerifyCSRF;
 use Core\Dir;
+use Core\Response;
 use Core\Route;
 use Core\Server;
 
@@ -115,12 +116,12 @@ function formHiddenInputTags(): string
  */
 function flashMessage(string $key, string|null $message = null): string
 {
-    if (empty($_SESSION["APP-FLASH-MESSAGE"])) $_SESSION["APP-FLASH-MESSAGE"] = [];
+    if (empty($_SESSION["_app_flash_message"])) $_SESSION["_app_flash_message"] = [];
     if (empty($message)) {
-        $message = $_SESSION["APP-FLASH-MESSAGE"][$key] ?? "";
-        unset($_SESSION["APP-FLASH-MESSAGE"][$key]);
+        $message = $_SESSION["_app_flash_message"][$key] ?? "";
+        unset($_SESSION["_app_flash_message"][$key]);
     } else {
-        $_SESSION["APP-FLASH-MESSAGE"][$key] = $message;
+        $_SESSION["_app_flash_message"][$key] = $message;
     }
     return $message;
 }
@@ -139,4 +140,19 @@ function getClientIp(): string
         ?? $_SERVER['HTTP_FORWARDED']
         ?? $_SERVER['REMOTE_ADDR']
         ?? 'UNKNOWN';
+}
+
+/**
+ * Custom REST API methods for PHP
+ *
+ * @param string $method
+ * @return string
+ * @throws Exception
+ */
+function formMethod(string $method): string
+{
+    $rest_methods = ["PUT", "PATCH", "DELETE"];
+    $method = strtoupper($method);
+    if (!in_array($method, $rest_methods)) throw new Exception("Method invalid", Response::STT_INTERNAL_SERVER_ERROR);
+    return "<input type=\"hidden\" name=\"_method\" value=\"$method\">";
 }

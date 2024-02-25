@@ -50,11 +50,12 @@ class Route
     /**
      * Configs X-CSRF-Token
      *
+     * @param bool $is_skip
      * @return $this
      */
-    public function skipXSRF(): Route
+    public function skipXSRF(bool $is_skip = true): Route
     {
-        $this->_is_skip_x_csrf_verification = true;
+        $this->_is_skip_x_csrf_verification = $is_skip;
         return $this;
     }
 

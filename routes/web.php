@@ -16,7 +16,8 @@ return [
         ->path("/products/{0}")
         ->action(ControllerFactory::make(HomeController::class, "product")),
 
-    route()->method("POST")
+    route()->method("PUT")
+        ->skipXSRF()
         ->path("/products/{0}")
         ->action(ControllerFactory::make(HomeController::class, "updateProduct")),
 ];

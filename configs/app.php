@@ -24,9 +24,9 @@ return [
      * Global middlewares
      */
     "middlewares" => [
-        RestApi::class,
         StartSession::class,
         StartOutputBuffer::class,
+        RestApi::class,
         InitEnvironment::class,
         CheckServerStatus::class,
         InitI18n::class,

@@ -149,7 +149,7 @@ class Response
      */
     #[NoReturn] public static function reload(): void
     {
-        header("Refresh: 0", true, 301);
+        header("Refresh: 0", true, 302);
         exit();
     }
 
@@ -161,7 +161,7 @@ class Response
      */
     #[NoReturn] public static function redirect(string $path): void
     {
-        header("Location: $path", true, 301);
+        header("Location: $path", true, 302);
         exit();
     }
 }

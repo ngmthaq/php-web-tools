@@ -4,7 +4,7 @@ namespace Core;
 
 class Server
 {
-    public const PREV_PATH_KEY = "PREV-PATH-FOR-VALIDATION";
+    public const PREV_PATH_KEY = "_prev_path_for_validation";
 
     /**
      * Get current path name

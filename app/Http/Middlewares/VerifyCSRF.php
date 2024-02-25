@@ -11,7 +11,7 @@ use Exception;
 
 class VerifyCSRF extends Middleware
 {
-    public const SESSION_KEY = "X-CSRF-TOKEN";
+    public const SESSION_KEY = "_x_csrf_token";
 
     /**
      * Handle Verify CSRF
@@ -23,7 +23,7 @@ class VerifyCSRF extends Middleware
     {
         // Init XSRF Token
         if (empty($_SESSION[self::SESSION_KEY])) {
-            $_SESSION[self::SESSION_KEY] = Str::random(64);
+            $_SESSION[self::SESSION_KEY] = Str::random();
         }
 
         // Check XSRF Token

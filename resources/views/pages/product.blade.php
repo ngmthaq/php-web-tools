@@ -10,8 +10,9 @@
 
 
 @section('body')
-    <form action="/products/{{ $id }}" method="post">
+    <form action="/products/{{ $id }}" method="POST">
         {!! formHiddenInputTags() !!}
+        {!! formMethod("PUT") !!}
         <label for="product_name">Product Name</label>
         <br>
         <input type="text" name="product_name" id="product_name" value="{{ flashMessage("product_name") }}">

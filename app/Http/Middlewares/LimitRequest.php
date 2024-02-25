@@ -8,7 +8,7 @@ use Core\Middleware;
 
 class LimitRequest extends Middleware
 {
-    public const SESSION_KEY = "THROTTLE-REQUESTS";
+    public const SESSION_KEY = "_throttle_requests";
 
     /**
      * Handle limit request per minute
