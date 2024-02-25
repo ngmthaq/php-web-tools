@@ -8,6 +8,7 @@ use App\Http\Middlewares\CheckServerStatus;
 use App\Http\Middlewares\InitEnvironment;
 use App\Http\Middlewares\InitI18n;
 use App\Http\Middlewares\LimitRequest;
+use App\Http\Middlewares\RestApi;
 use App\Http\Middlewares\StartOutputBuffer;
 use App\Http\Middlewares\StartSession;
 use App\Http\Middlewares\VerifyCORS;
@@ -23,6 +24,7 @@ return [
      * Global middlewares
      */
     "middlewares" => [
+        RestApi::class,
         StartSession::class,
         StartOutputBuffer::class,
         InitEnvironment::class,

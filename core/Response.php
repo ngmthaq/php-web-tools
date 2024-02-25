@@ -75,26 +75,6 @@ class Response
     }
 
     /**
-     * Response with validation error (text/html or application/json)
-     *
-     * @param string $message
-     * @param array $details
-     * @return void
-     * @throws Exception
-     */
-    #[NoReturn] public static function validationError(string $message, array $details = []): void
-    {
-        $status = self::STT_UNPROCESSABLE_CONTENT;
-        if (self::isNeedJson()) {
-            self::jsonError($status, $message, $details);
-        } else {
-            foreach ($details as $error_key => $error_message) flashMessage($error_key . "_error", $error_message);
-            foreach (Request::input() as $name => $value) flashMessage($name, $value);
-            self::reload();
-        }
-    }
-
-    /**
      * Check json needed
      *
      * @return bool
@@ -143,15 +123,23 @@ class Response
     }
 
     /**
-     * Redirect
+     * Response with validation error (text/html or application/json)
      *
-     * @param string $path
+     * @param string $message
+     * @param array $details
      * @return void
+     * @throws Exception
      */
-    #[NoReturn] public static function redirect(string $path): void
+    #[NoReturn] public static function validationError(string $message, array $details = []): void
     {
-        header("Location: $path", true, 301);
-        exit();
+        $status = self::STT_UNPROCESSABLE_CONTENT;
+        if (self::isNeedJson()) {
+            self::jsonError($status, $message, $details);
+        } else {
+            foreach ($details as $error_key => $error_message) flashMessage($error_key . "_error", $error_message);
+            foreach (Request::input() as $name => $value) flashMessage($name, $value);
+            self::reload();
+        }
     }
 
     /**
@@ -162,6 +150,18 @@ class Response
     #[NoReturn] public static function reload(): void
     {
         header("Refresh: 0", true, 301);
+        exit();
+    }
+
+    /**
+     * Redirect
+     *
+     * @param string $path
+     * @return void
+     */
+    #[NoReturn] public static function redirect(string $path): void
+    {
+        header("Location: $path", true, 301);
         exit();
     }
 }
