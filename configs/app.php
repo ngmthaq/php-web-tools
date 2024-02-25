@@ -26,10 +26,10 @@ return [
     "middlewares" => [
         StartSession::class,
         StartOutputBuffer::class,
-        RestApi::class,
         InitEnvironment::class,
-        CheckServerStatus::class,
         InitI18n::class,
+        CheckServerStatus::class,
+        RestApi::class,
         VerifyCSRF::class,
         VerifyCORS::class,
         LimitRequest::class,
