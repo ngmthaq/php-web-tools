@@ -5,6 +5,7 @@ namespace App;
 use App\Exceptions\AppException;
 use App\Exceptions\FailureValidationException;
 use App\Exceptions\ForbiddenException;
+use App\Providers\AppProvider;
 use Core\Debug;
 use Core\Dir;
 use Core\Request;
@@ -23,6 +24,7 @@ class Kernel
     public function run(): void
     {
         try {
+            $this->runProviders();
             $this->runMiddlewares();
             $route = Request::getCurrentRoute();
             call_user_func($route->resolvePath());
@@ -56,6 +58,22 @@ class Kernel
         $global_middlewares = $app_configs["middlewares"];
         foreach ($global_middlewares as $middleware) {
             call_user_func_array([new $middleware, "handle"], []);
+        }
+    }
+
+    /**
+     * Start running providers
+     *
+     * @return void
+     */
+    public function runProviders(): void
+    {
+        $app_configs = require(Dir::configs() . "/app.php");
+        $providers = $app_configs["providers"];
+        $GLOBALS[AppProvider::GLOBAL_KEY] = [];
+        foreach ($providers as $provider) {
+            $provider_instance = new $provider;
+            $GLOBALS[AppProvider::GLOBAL_KEY][$provider_instance->key] = $provider_instance;
         }
     }
 }
