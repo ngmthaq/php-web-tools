@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\FailureValidationException;
 use App\Exceptions\NotFoundException;
+use App\Repositories\UserRepositoryContract;
 use Core\AccessToken;
-use Core\Controller;
 use Core\Debug;
 use Core\Hash;
 use Core\Request;
@@ -15,6 +15,13 @@ use JetBrains\PhpStorm\NoReturn;
 
 class HomeController extends Controller
 {
+    public UserRepositoryContract $user_repo;
+
+    public function __construct(UserRepositoryContract $user_repo)
+    {
+        $this->user_repo = $user_repo;
+    }
+
     /**
      * @return void
      * @throws Exception
@@ -25,7 +32,8 @@ class HomeController extends Controller
         $password = Hash::make("thang2000");
         $token = AccessToken::generate($username, $password);
         $payload = AccessToken::getPayload($token);
-        Debug::printR($username, $password, $token, $payload);
+        $test_repo = $this->user_repo->test();
+        Debug::printR($username, $password, $token, $payload, $test_repo);
     }
 
     /**

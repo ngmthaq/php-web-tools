@@ -13,6 +13,7 @@ use App\Http\Middlewares\StartOutputBuffer;
 use App\Http\Middlewares\StartSession;
 use App\Http\Middlewares\VerifyCORS;
 use App\Http\Middlewares\VerifyCSRF;
+use App\Providers\RepositoryProvider;
 
 return [
     /**
@@ -33,6 +34,13 @@ return [
         VerifyCSRF::class,
         VerifyCORS::class,
         LimitRequest::class,
+    ],
+
+    /**
+     * Providers
+     */
+    "providers" => [
+        RepositoryProvider::class,
     ],
 
     /**

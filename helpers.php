@@ -2,6 +2,7 @@
 
 use App\Http\Middlewares\InitI18n;
 use App\Http\Middlewares\VerifyCSRF;
+use App\Providers\AppProvider;
 use Core\Dir;
 use Core\Response;
 use Core\Route;
@@ -154,4 +155,19 @@ function formMethod(string $method): string
     $method = strtoupper($method);
     if (!in_array($method, $rest_methods)) throw new Exception("Method invalid", Response::STT_INTERNAL_SERVER_ERROR);
     return "<input type=\"hidden\" name=\"_method\" value=\"$method\">";
+}
+
+/**
+ * Resolve provider
+ *
+ * @param string $namespace
+ * @param string $contract
+ * @return mixed
+ * @throws Exception
+ */
+function provider(string $namespace, string $contract): mixed
+{
+    $provider = $GLOBALS[AppProvider::GLOBAL_KEY][$namespace];
+    if ($provider instanceof App\Providers\AppProvider) return $provider->resolve($contract);
+    throw new Exception("Cannot found provider. (Namespace: $namespace, contract: $contract", Response::STT_INTERNAL_SERVER_ERROR);
 }
