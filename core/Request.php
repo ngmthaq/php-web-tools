@@ -32,7 +32,7 @@ class Request
         foreach ($params as $key => $value) {
             if (gettype($value) === "string") {
                 $output[$key] = htmlentities(trim($value));
-            } else if (gettype($value) === "array") {
+            } elseif (gettype($value) === "array") {
                 $output[$key] = self::preventXSS($value);
             } else {
                 $output[$key] = $value;

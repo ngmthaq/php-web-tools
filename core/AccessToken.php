@@ -18,7 +18,7 @@ class AccessToken
     {
         $time = time();
         $expired_at = $expired + $time;
-        $payload = json_encode(["un" => $username, "ep" => $encrypted_password, "ea" => $expired_at]);
+        $payload = json_encode(["un" => $username, "ep" => $encrypted_password, "ea" => $expired_at, "ca" => $time]);
         $base64 = Str::base64UrlEncode($payload);
         return Encryption::encrypt($base64);
     }
@@ -38,7 +38,8 @@ class AccessToken
         $is_expired = time() > $payload["ea"];
         $username = $payload["un"];
         $encrypted_password = $payload["ep"];
+        $created_at = $payload["ca"];
         $expired_at = $payload["ea"];
-        return compact("username", "encrypted_password", "expired_at", "is_expired");
+        return compact("username", "encrypted_password", "created_at", "expired_at", "is_expired");
     }
 }

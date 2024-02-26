@@ -46,4 +46,20 @@ class Server
     {
         return $_SERVER['HTTP_ORIGIN'];
     }
+
+    /**
+     * Get client ip address
+     *
+     * @return string
+     */
+    public static function getClientIp(): string
+    {
+        return $_SERVER['HTTP_CLIENT_IP']
+            ?? $_SERVER['HTTP_X_FORWARDED_FOR']
+            ?? $_SERVER['HTTP_X_FORWARDED']
+            ?? $_SERVER['HTTP_FORWARDED_FOR']
+            ?? $_SERVER['HTTP_FORWARDED']
+            ?? $_SERVER['REMOTE_ADDR']
+            ?? 'UNKNOWN';
+    }
 }

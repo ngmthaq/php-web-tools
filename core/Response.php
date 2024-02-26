@@ -65,13 +65,14 @@ class Response
      * @param int $status
      * @param string $message
      * @param array $details
+     * @param array $trace
      * @return void
      * @throws Exception
      */
-    #[NoReturn] public static function error(int $status, string $message, array $details = []): void
+    #[NoReturn] public static function error(int $status, string $message, array $details = [], array $trace = []): void
     {
-        if (self::isNeedJson()) self::jsonError($status, $message, $details);
-        else self::view("errors.common", compact("status", "message", "details"), $status);
+        if (self::isNeedJson()) self::jsonError($status, $message, $details, $trace);
+        else self::view("errors.common", compact("status", "message", "details", "trace"), $status);
     }
 
     /**
@@ -90,14 +91,15 @@ class Response
      * @param int $status
      * @param string $message
      * @param array $details
+     * @param array $trace
      * @return void
      */
-    #[NoReturn] public static function jsonError(int $status, string $message, array $details = []): void
+    #[NoReturn] public static function jsonError(int $status, string $message, array $details = [], array $trace = []): void
     {
         ob_end_clean();
         http_response_code($status);
         header("Content-Type: application/json; charset=utf-8");
-        echo json_encode(compact("message", "details"));
+        echo json_encode(compact("message", "details", "trace"));
         exit();
     }
 
@@ -127,14 +129,14 @@ class Response
      *
      * @param string $message
      * @param array $details
+     * @param array $trace
      * @return void
-     * @throws Exception
      */
-    #[NoReturn] public static function validationError(string $message, array $details = []): void
+    #[NoReturn] public static function validationError(string $message, array $details = [], array $trace = []): void
     {
         $status = self::STT_UNPROCESSABLE_CONTENT;
         if (self::isNeedJson()) {
-            self::jsonError($status, $message, $details);
+            self::jsonError($status, $message, $details, $trace);
         } else {
             foreach ($details as $error_key => $error_message) flashMessage($error_key . "_error", $error_message);
             foreach (Request::input() as $name => $value) flashMessage($name, $value);

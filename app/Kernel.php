@@ -27,19 +27,21 @@ class Kernel
             $route = Request::getCurrentRoute();
             call_user_func($route->resolvePath());
         } catch (ForbiddenException $th) {
-            Response::error($th->getCode(), $th->getMessage(), $th->getDetails());
+            $trace = isProd() ? [] : $th->getTrace();
+            Response::error($th->getCode(), $th->getMessage(), $th->getDetails(), $trace);
         } catch (FailureValidationException $th) {
-            Response::validationError($th->getMessage(), $th->getDetails());
+            $trace = isProd() ? [] : $th->getTrace();
+            Response::validationError($th->getMessage(), $th->getDetails(), $trace);
         } catch (AppException $th) {
-            $details = isProd() ? [] : $th->getTrace();
-            Response::error($th->getCode(), $th->getMessage(), $details);
+            $trace = isProd() ? [] : $th->getTrace();
+            Response::error($th->getCode(), $th->getMessage(), [], $trace);
         } catch (Throwable $th) {
             $error_message = $th->getMessage() . " (" . $th->getFile() . ":" . $th->getLine() . ")";
             $message = isProd() ? "The server has encountered a situation it does not know how to handle" : $error_message;
-            $details = isProd() ? [] : $th->getTrace();
+            $trace = isProd() ? [] : $th->getTrace();
             $debug_message = $error_message . "\n" . $th->getTraceAsString() . "\n";
             Debug::error($debug_message);
-            Response::error(Response::STT_INTERNAL_SERVER_ERROR, $message, $details);
+            Response::error(Response::STT_INTERNAL_SERVER_ERROR, $message, [], $trace);
         }
     }
 

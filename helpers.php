@@ -127,22 +127,6 @@ function flashMessage(string $key, string|null $message = null): string
 }
 
 /**
- * Get client ip address
- *
- * @return string
- */
-function getClientIp(): string
-{
-    return $_SERVER['HTTP_CLIENT_IP']
-        ?? $_SERVER['HTTP_X_FORWARDED_FOR']
-        ?? $_SERVER['HTTP_X_FORWARDED']
-        ?? $_SERVER['HTTP_FORWARDED_FOR']
-        ?? $_SERVER['HTTP_FORWARDED']
-        ?? $_SERVER['REMOTE_ADDR']
-        ?? 'UNKNOWN';
-}
-
-/**
  * Custom REST API methods for PHP
  *
  * @param string $method
