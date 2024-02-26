@@ -9,6 +9,8 @@ use i18n as I18n;
 
 class InitI18n extends Middleware
 {
+    public const GLOBAL_KEY = "_i18n";
+
     /**
      * Handle load i18n
      *
@@ -22,5 +24,6 @@ class InitI18n extends Middleware
         $i18n->setFilePath(Dir::resources() . "/langs/{LANGUAGE}.json");
         $i18n->setFallbackLang('en');
         $i18n->init();
+        $GLOBALS[self::GLOBAL_KEY] = $i18n;
     }
 }

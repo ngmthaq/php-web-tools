@@ -21,6 +21,12 @@
 {{-- Body Content --}}
 @yield('body')
 
+{{-- Setup preload script --}}
+<script>
+    if (!window.PHP) window.PHP = {};
+    window.PHP.currentLanguage = "{{ i18n()->getAppliedLang() }}";
+</script>
+
 {{-- Main Script --}}
 <script src="{{ assets('bundles/main.bundle.js') }}"></script>
 

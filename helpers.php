@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middlewares\InitI18n;
 use App\Http\Middlewares\VerifyCSRF;
 use Core\Dir;
 use Core\Response;
@@ -10,12 +11,26 @@ use Core\Server;
  * Translate
  *
  * @param string $string
- * @param mixed|null $args
+ * @param array $placeholders
  * @return string
  */
-function __(string $string, mixed $args = null): string
+function __(string $string, array $placeholders = []): string
 {
-    return L($string, $args);
+    $output = L($string);
+    foreach ($placeholders as $key => $value) {
+        $output = str_replace(":$key", $value, $output);
+    }
+    return $output;
+}
+
+/**
+ * Get i18n instance
+ *
+ * @return i18n
+ */
+function i18n(): i18n
+{
+    return $GLOBALS[InitI18n::GLOBAL_KEY];
 }
 
 /**
